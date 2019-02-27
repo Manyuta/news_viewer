@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import config from "../config.js";
+
+
+const API_KEY = config.API_KEY;
+const API_URL = "https://newsapi.org";
 
 class Home extends Component {
   state = {
@@ -8,11 +13,8 @@ class Home extends Component {
   };
   componentDidMount() {
     axios
-      .get(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=dd300d72e4224e4bb9e3dc1d5bf1c183"
-      )
+      .get(`${API_URL}/v2/top-headlines?country=us&apiKey=${API_KEY}`)
       .then(res => {
-        //  console.log(res);
         this.setState({
           posts: res.data.articles.slice(0, 10)
         });
@@ -24,13 +26,13 @@ class Home extends Component {
       posts.map(post => {
         return (
           <div className="post card" key={post.url}>
-            <img src={post.urlToImage} alt="news image" />
+            <img src={post.urlToImage} alt="post" />
             <div className="card-content">
               <NavLink to={"/" + post.title}>
                 <span className="card-title red-text">{post.title}</span>
               </NavLink>
               <div>{post.description}</div>
-              <a href={post.url} target="_blank">
+              <a href={post.url} rel="noopener noreferrer" target="_blank">
                 <span className="right-align">Read more...</span>
               </a>
             </div>
@@ -42,7 +44,6 @@ class Home extends Component {
     );
     return (
       <div className="container home">
-        <h4 className="center">Home Page</h4>
         <div>{postList}</div>
       </div>
     );

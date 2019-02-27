@@ -5,7 +5,9 @@ const Navbar = props => {
   return (
     <nav className="nav-wrapper red darken-3">
       <div className="container">
-        <a className="brand-logo">News'Times</a>
+        <a href="#" className="brand-logo">
+          News'Times
+        </a>
       </div>
       <ul className="right">
         <li>
